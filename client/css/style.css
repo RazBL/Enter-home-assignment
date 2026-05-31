@@ -1,0 +1,163 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    direction: rtl;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+.app-bg {
+    background-color: rgb(220, 220, 220);
+}
+
+.app-shell {
+    position: relative;
+}
+
+.desktop-sidebar {
+    display: none;
+}
+
+.app-content {
+    min-width: 0;
+}
+
+.auth-card {
+    width: min(100%, 420px);
+}
+
+.card {
+    border-radius: 8px;
+}
+
+.table {
+    min-width: 620px;
+}
+
+.student-class {
+    color: #212529;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.student-card-actions {
+    flex-wrap: wrap;
+}
+
+.phone-number {
+    direction: ltr;
+    text-align: right;
+    unicode-bidi: plaintext;
+}
+
+input.phone-number {
+    text-align: right;
+}
+
+.task-card-top {
+    min-width: 0;
+}
+
+.task-card .form-check,
+.task-card-top .form-check {
+    min-width: 0;
+}
+
+.task-card h6,
+.task-card p,
+.task-card-top p {
+    overflow-wrap: anywhere;
+}
+
+.task-actions {
+    flex-wrap: wrap;
+}
+
+.form-check-label {
+    cursor: pointer;
+}
+
+.home{
+    text-decoration: none;
+    color: black;
+}
+
+@media (min-width: 992px) {
+    .app-shell {
+        padding-right: 240px;
+    }
+
+    .desktop-sidebar {
+        display: block;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 240px;
+        z-index: 1020;
+    }
+
+    .app-topbar {
+        display: none;
+    }
+
+    .offcanvas {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        padding: 1rem !important;
+    }
+
+    .btn {
+        white-space: nowrap;
+    }
+
+    .navbar {
+        gap: 0.75rem;
+    }
+
+    .navbar > div:first-child {
+        min-width: 0;
+    }
+
+    .navbar .d-flex {
+        flex-shrink: 0;
+    }
+
+    .task-card-top {
+        flex-direction: column;
+    }
+
+    .task-card-top .badge {
+        align-self: flex-start;
+    }
+
+    .task-actions {
+        justify-content: stretch !important;
+    }
+
+    .task-actions .btn {
+        flex: 1;
+    }
+
+    .student-card-actions .btn {
+        flex: 1;
+    }
+
+    .table {
+        min-width: 560px;
+    }
+}
