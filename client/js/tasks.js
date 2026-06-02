@@ -66,16 +66,16 @@ function createTaskCard(task) {
 
     return `
         <div class="task-card border rounded p-3 bg-white" data-id="${task.id}">
-            <div class="task-card-top d-flex justify-content-between align-items-start gap-3">
-                <div class="form-check">
-                    <input class="form-check-input task-checkbox" type="checkbox" id="task-${task.id}" ${checked}>
-                    <label class="form-check-label ${textClass}" for="task-${task.id}">
+        <input class="form-check-input task-checkbox" type="checkbox" id="task-${task.id}" ${checked}>
+            <label class="form-check-label ${textClass}" for="task-${task.id}">
+                <div class="task-card-top d-flex justify-content-between align-items-start gap-3">
+                    <div class="form-check">
                         <h6 class="mb-1">${task.title}</h6>
                         <p class="text-muted mb-0">${formatClassName(task.className)} - ${formatDate(task.dueDate)}</p>
-                    </label>
+                    </div>
+                        <span class="badge rounded-pill ${badgeClass}">${badgeText}</span>
                 </div>
-                <span class="badge rounded-pill ${badgeClass}">${badgeText}</span>
-            </div>
+            </label>
 
             <div class="task-actions d-flex gap-2 justify-content-end mt-3">
                 <button type="button" class="btn btn-sm btn-warning edit-task">עריכה</button>
@@ -219,6 +219,21 @@ tasksContainer.addEventListener("click", async function (event) {
         return task.id === id;
     });
 
+    if (!event.target.classList.contains("edit-task") &&
+        !event.target.classList.contains("delete-task") &&
+        !event.target.closest(".task-checkbox, .form-check-label")) {
+        const checkbox = card.querySelector(".task-checkbox");
+
+        if (checkbox) {
+            checkbox.checked = !checkbox.checked;
+            checkbox.dispatchEvent(new Event("change", {
+                bubbles: true
+            }));
+        }
+
+        return;
+    }
+
     if (event.target.classList.contains("edit-task")) {
         editingTaskId = id;
         fillTaskForm(task);
@@ -226,6 +241,7 @@ tasksContainer.addEventListener("click", async function (event) {
 
         const addTaskCard = document.getElementById("addTaskCard");
         bootstrap.Collapse.getOrCreateInstance(addTaskCard).show();
+        return;
     }
 
     if (event.target.classList.contains("delete-task")) {

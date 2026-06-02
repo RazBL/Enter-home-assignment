@@ -101,6 +101,10 @@ input.phone-number {
     min-width: 0;
 }
 
+.task-card {
+    cursor: pointer;
+}
+
 .task-card .form-check,
 .task-card-top .form-check {
     min-width: 0;
