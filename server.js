@@ -3,7 +3,7 @@ const cors = require("cors");
 const path = require("path");
 const db = require("./database");
 const app = express();
-const israeliMobilePhonePattern = /^05\d{8}$/;
+const mobilePhonePattern = /^05\d{8}$/;
 
 const port = 3000;
 const clientPath = path.join(__dirname, "client");
@@ -29,8 +29,8 @@ function normalizePhone(phone) {
     return String(phone || "").trim().replace(/-/g, "");
 }
 
-function isValidIsraeliMobilePhone(phone) {
-    return israeliMobilePhonePattern.test(phone);
+function isValidMobilePhonePattern(phone) {
+    return mobilePhonePattern.test(phone);
 }
 
 function formatDateString(date) {
@@ -69,7 +69,7 @@ function validateStudentInput(req, res) {
         return null;
     }
 
-    if (!isValidIsraeliMobilePhone(student.phone)) {
+    if (!isValidMobilePhonePattern(student.phone)) {
         res.status(400).json({
             message: "Phone must be a valid Israeli mobile number"
         });

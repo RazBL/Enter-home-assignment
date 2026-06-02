@@ -7,7 +7,7 @@ const studentFormTitle = document.querySelector("#studentFormTitle");
 const addStudentCard = document.getElementById("addStudentCard");
 const phoneInput = document.getElementById("studentPhone");
 const studentSearchInput = document.querySelector("#studentSearch");
-const israeliMobilePhonePattern = /^05\d{8}$/;
+const mobilePhonePattern = /^05\d{8}$/;
 const addStudentTitle = "הוספת תלמיד חדש";
 const editStudentTitle = "ערוך תלמיד";
 const saveButtonText = "שמירה";
@@ -20,8 +20,8 @@ function normalizePhone(phone) {
     return phone.trim().replace(/-/g, "");
 }
 
-function isValidIsraeliMobilePhone(phone) {
-    return israeliMobilePhonePattern.test(normalizePhone(phone));
+function isValidMobilePhonePattern(phone) {
+    returnmobilePhonePattern.test(normalizePhone(phone));
 }
 
 phoneInput.addEventListener("input", function () {
@@ -145,7 +145,7 @@ async function loadStudents() {
 studentForm.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    if (!isValidIsraeliMobilePhone(phoneInput.value)) {
+    if (!isValidMobilePhonePattern(phoneInput.value)) {
         phoneInput.setCustomValidity("מספר טלפון ישראלי חייב להתחיל ב-05 ולהכיל 10 ספרות");
         phoneInput.reportValidity();
         return;
