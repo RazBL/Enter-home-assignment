@@ -16,7 +16,17 @@ let tasks = [];
 let editingTaskId = null;
 
 function formatDate(date) {
-    return new Date(date).toLocaleDateString("he-IL");
+    const parts = date.split("-");
+
+    if (parts.length !== 3) {
+        return date;
+    }
+
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+}
+
+function createDateText(date) {
+    return `<span dir="ltr">${formatDate(date)}</span>`;
 }
 
 function formatDateString(date) {
@@ -32,13 +42,7 @@ function getTodayDateString() {
 }
 
 function formatDateForInput(date) {
-    const parts = date.split("-");
-
-    if (parts.length !== 3) {
-        return date;
-    }
-
-    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    return formatDate(date);
 }
 
 function parseDateInput(date) {
@@ -123,7 +127,7 @@ function createTaskCard(task) {
                 <div class="task-card-top d-flex flex-column flex-sm-row justify-content-between align-items-start gap-3">
                     <div class="form-check">
                         <h6 class="mb-1">${task.title}</h6>
-                        <p class="text-muted mb-0">${formatClassName(task.className)} - ${formatDate(task.dueDate)}</p>
+                        <p class="text-muted mb-0">${formatClassName(task.className)} - ${createDateText(task.dueDate)}</p>
                     </div>
                     <span class="badge rounded-pill align-self-start align-self-sm-auto ${badgeClass}">${badgeText}</span>
                 </div>
@@ -195,6 +199,11 @@ async function loadTasks() {
 
 taskForm.addEventListener("submit", async function (event) {
     event.preventDefault();
+
+    if (!taskDueDateInput.checkValidity()) {
+        taskDueDateInput.reportValidity();
+        return;
+    }
 
     const task = getTaskFormData();
 
@@ -345,4 +354,5 @@ taskDueDateInput.addEventListener("input", function () {
     taskDueDateInput.value = formatDateInputValue(taskDueDateInput.value);
 });
 
+resetTaskForm();
 loadTasks();

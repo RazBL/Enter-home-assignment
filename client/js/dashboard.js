@@ -5,7 +5,17 @@ const tasksList = document.querySelector("#tasksList");
 const tasksTableBody = document.querySelector("#tasksTableBody");
 
 function formatDate(date) {
-    return new Date(date).toLocaleDateString("he-IL");
+    const parts = date.split("-");
+
+    if (parts.length !== 3) {
+        return date;
+    }
+
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+}
+
+function createDateText(date) {
+    return `<span dir="ltr">${formatDate(date)}</span>`;
 }
 
 function formatClassName(className) {
@@ -65,7 +75,7 @@ function renderTasksTable(tasks) {
             <tr class="task-row" data-id="${task.id}" data-completed="${task.completed}">
                 <td class="${status.textClass}">${task.title}</td>
                 <td class="${status.textClass}">${formatClassName(task.className)}</td>
-                <td class="${status.textClass}">${formatDate(task.dueDate)}</td>
+                <td class="${status.textClass}">${createDateText(task.dueDate)}</td>
                 <td><span class="badge rounded-pill ${status.badgeClass}">${status.badgeText}</span></td>
                 <td>
                     <input class="form-check-input task-checkbox" type="checkbox" data-id="${task.id}" ${status.checked}>
@@ -90,7 +100,7 @@ function renderTasksCards(tasks) {
                     <input class="form-check-input task-checkbox" type="checkbox" id="task-${task.id}" data-id="${task.id}" ${status.checked}>
                     <label class="form-check-label ${status.textClass}" for="task-${task.id}">
                         <p class="mb-1">${task.title}</p>
-                        <p class="text-muted mb-0">${formatClassName(task.className)} - ${formatDate(task.dueDate)}</p>
+                        <p class="text-muted mb-0">${formatClassName(task.className)} - ${createDateText(task.dueDate)}</p>
                     </label>
                 </div>
                 <span class="badge rounded-pill align-self-start align-self-sm-auto ${status.badgeClass}">${status.badgeText}</span>
